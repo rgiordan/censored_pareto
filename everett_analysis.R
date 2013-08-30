@@ -3,7 +3,7 @@
 # Perform analysis
 
 library(ggplot2)
-source("~/Desktop/everett_analysis_lib.R")
+source("./everett_analysis_lib.R")
 options(warn=1)
 
 d.original <- read.delim("Desktop/everett_raw.txt", sep="")
