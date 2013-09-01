@@ -92,12 +92,6 @@ big.sim <- DrawPiecewisePareto(n=1e7, x.min=x.min, alpha=alpha)
 sd(big.sim)
 mean(big.sim)
 
-
-# Calculate the value of exposure to this risk.
-wealth <- 3 # This many million in wealth to start
-gamma <- 2  # CRRA Coefficient
-scale <- 0.01   # The percent of the exit value you actually get
-
 risky.utilities <- CRRAUtilty(wealth=wealth, gain=scale * big.sim, gamma=gamma)
 risky.utility <- mean(risky.utilities)
 #sd(risky.utilities) / sqrt(length(big.sim))
@@ -106,4 +100,17 @@ EquivalentWealth <- function(deterministic.gain) {
   return(CRRAUtilty(wealth=wealth + deterministic.gain, gain=0, gamma=gamma) -
                     risky.utility)
 }
+
+##################
+#
+# Set these values and re-execute the uniroot command to 
+# evaluate the cash value of different risky exposures.
+#
+##################
+
+# Calculate the value of exposure to this risk.
+wealth <- 3 # This many million in wealth to start
+gamma <- 2  # CRRA Coefficient
+scale <- 0.01   # The proportion of the company's exit value you actually get
+
 uniroot(EquivalentWealth, interval=c(0, 50))$root
