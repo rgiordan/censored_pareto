@@ -1,0 +1,8 @@
+
+In R, run
+
+source("everett_analysis.R", echo=T)
+
+You'll need to have ggplot2 installed to see the graphs and not get errors.
+
+install.packages("ggplot2")
