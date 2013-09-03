@@ -64,6 +64,7 @@ CensoredParetoLogLik <- function(alpha, x.min, breaks, counts) {
   return(log.lik)
 }
 
+
 # <breaks> should be a sorted numeric vector.
 # Returns the index of breaks that is the greatest
 # element less than or equal to the corresponding
@@ -139,13 +140,6 @@ pPiecewisePareto <- function(q, alpha, x.min, continuous=TRUE) {
   return(probs)
 }
 
-alpha <- c(1.1, 2.2, 3.3); x.min <- c(1, 100, 1000)
-q <- exp(seq(log(0.1), log(10000), length.out=500))
-p <- pPiecewisePareto(q, alpha, x.min, continuous=T)
-
-plot(log10(q), c(0, log10(diff(p)))); abline(v=log10(x.min)); abline(h=1)
-plot(log10(q), p); abline(v=log10(x.min)); abline(h=1)
-
 
 CensoredPiecewiseParetoLogLik <- function(alpha, x.min, breaks, counts) {
   if (!x.min[1] < breaks[1]) {
@@ -190,7 +184,6 @@ DrawPiecewisePareto <- function(n, alpha, x.min) {
   names(res) <- NULL
   return(res)
 }
-#x <- DrawPiecewisePareto(1000, alpha, x.min)
 
 
 DrawPiecewiseParetoMoment <- function(n, alpha, x.min, MomentFun) {
@@ -198,24 +191,29 @@ DrawPiecewiseParetoMoment <- function(n, alpha, x.min, MomentFun) {
   return(mean(MomentFun(x)))
 }
 
+
 # Helper functions for constraining the MLE parameter estimates
 LogitFunction <- function(x, logit.min=0, logit.max=1) {
   x <- exp(x) / (exp(x) + 1)
   return(x * (logit.max - logit.min) + logit.min)
 }
 
+
 InvLogitFunction <- function(x, logit.min=0, logit.max=1) {
   x <- (x - logit.min) / (logit.max - logit.min)
   return(log(x / (1 - x)))
 }
 
+
 ExpFunction <- function(x, exp.min=0) {
   return(exp(x) + exp.min)
 }
 
+
 InvExpFunction <- function(x, exp.min=0) {
   return(log(x - exp.min))
 }
+
 
 BootstrapDataFrame <- function(d) {
   count.col <- "Companies.n"
@@ -229,6 +227,7 @@ BootstrapDataFrame <- function(d) {
 CRRAUtilty <- function(wealth, gain, gamma) {
   return(((wealth + gain) ^ (1 - gamma)) / (1 - gamma))
 }
+
 
 CRRARiskValue <- function(wealth, gain, gamma) {
   return(CRRAUtilty(wealth, gain, gamma) - CRRAUtilty(wealth, 0, gamma))
